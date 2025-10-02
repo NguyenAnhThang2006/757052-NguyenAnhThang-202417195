@@ -1,0 +1,40 @@
+Questions of Exercise 6:
+
+*In the code:
+
+	(option == JOptionPane.YES_OPTION ? "Yes" : "No")
+
++ This is the ternary operator in Java:
+
+	condition ? valueIfTrue : valueIfFalse
+
++ Therefore:
+	- The condition is (option == JOptionPane.YES_OPTION).
+	- If the condition is true (user clicks Yes) → it returns "Yes".
+	- If the condition is false (user clicks No, Cancel, or closes the dialog) → it always returns "No".
+→ Any choice other than Yes will be treated as No in the output.
+
+*Customize the options for users:
+
+- For "Yes/No":
+
+	int option = JOptionPane.showConfirmDialog(
+    	null,
+    	"Do you want to continue?",
+    	"Confirm",
+    	JOptionPane.YES_NO_OPTION
+	);
+
+- For "I do/I don’t":
+
+	Object[] options = {"I do", "I don't"};
+	int option = JOptionPane.showOptionDialog(
+    	null,
+    	"Do you agree?",
+    	"Custom Option Dialog",
+    	JOptionPane.YES_NO_OPTION,
+    	JOptionPane.QUESTION_MESSAGE,
+    	null,
+    	options,
+    	options[0]
+	);
