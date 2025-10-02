@@ -1,4 +1,4 @@
-Questions of Exercise 6:
+Questions of Exercise 6.1:
 
 *In the code:
 
