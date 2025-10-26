@@ -2,6 +2,7 @@ package hust.soict.dsai.aims.test;
 import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.DigitalVideoDisc;
 
+/*
 public class AimsTest {
     public static void main(String[] args) {
         Cart cart = new Cart();
@@ -20,6 +21,21 @@ public class AimsTest {
 
         // Tính tổng
         System.out.println("Total cost: " + cart.totalCost());
+    }
+}
+ */
+
+public class AimsTest {
+    public static void main(String[] args) {
+        DigitalVideoDisc dvd1 = new DigitalVideoDisc("Jungle");
+        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Cinderella");
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Lion King");
+
+        dvd1.printInfo();
+        dvd2.printInfo();
+        dvd3.printInfo();
+
+        System.out.println("Total DVDs created: " + DigitalVideoDisc.getNbDigitalVideoDiscs());
     }
 }
 

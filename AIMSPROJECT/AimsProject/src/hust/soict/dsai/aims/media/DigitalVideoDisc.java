@@ -8,6 +8,46 @@ public class DigitalVideoDisc {
     private int length;
     private float cost;
 
+    private int id; // instance member (unique per DVD)
+
+    // Class variable (shared by all instances)
+    private static int nbDigitalVideoDiscs = 0;
+
+    // === Constructors ===
+    public DigitalVideoDisc(String title) {
+        this.title = title;
+        nbDigitalVideoDiscs++;
+        this.id = nbDigitalVideoDiscs;
+    }
+
+    public DigitalVideoDisc(String category, String title, float cost) {
+        this.category = category;
+        this.title = title;
+        this.cost = cost;
+        nbDigitalVideoDiscs++;
+        this.id = nbDigitalVideoDiscs;
+    }
+
+    public DigitalVideoDisc(String director, String category, String title, float cost) {
+        this.director = director;
+        this.category = category;
+        this.title = title;
+        this.cost = cost;
+        nbDigitalVideoDiscs++;
+        this.id = nbDigitalVideoDiscs;
+    }
+
+    public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
+        this.title = title;
+        this.category = category;
+        this.director = director;
+        this.length = length;
+        this.cost = cost;
+        nbDigitalVideoDiscs++;
+        this.id = nbDigitalVideoDiscs;
+    }
+
+    // === Getters ===
     public String getTitle() {
         return title;
     }
@@ -32,30 +72,20 @@ public class DigitalVideoDisc {
         return cost;
     }
 
-    public DigitalVideoDisc(String title) {
-        this.title = title;
+    public int getId() {
+        return id;
     }
 
-    public DigitalVideoDisc(String category, String title, float cost) {
-        this.category = category;
-        this.title = title;
-        this.cost = cost;
+    // === Static getter for class variable ===
+    public static int getNbDigitalVideoDiscs() {
+        return nbDigitalVideoDiscs;
     }
 
-    public DigitalVideoDisc(String director, String category, String title, float cost) {
-        this.director = director;
-        this.category = category;
-        this.title = title;
-        this.cost = cost;
+    // === Display info ===
+    public void printInfo() {
+        System.out.println("DVD ID: " + id + " | Title: " + title + " | Cost: $" + cost);
     }
 
-    public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-        this.title = title;
-        this.category = category;
-        this.director = director;
-        this.length = length;
-        this.cost = cost;
-    }
 
     @Override
     public boolean equals(Object obj) {
