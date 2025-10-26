@@ -103,4 +103,11 @@ public class DigitalVideoDisc {
     public String toString() {
         return "DVD - " + title + " - " + category + " - " + director + " - " + length + ": " + cost + " $";
     }
+
+    public boolean isMatch(String title) {
+        if (this.title == null || title == null) return false;
+        return this.title.equalsIgnoreCase(title);
+    }
+
+
 }
