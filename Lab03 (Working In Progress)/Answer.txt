@@ -1,6 +1,0 @@
-To test whether a programming language is passing by value or passing by reference, we usually use the swap method. This method aims to swap an object to another object. 
-●	After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
-●	After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
-
-After finding the answers to these above questions, you will understand that JAVA is always a pass by value programming language.
-Please write a swap() method that can correctly swap the two objects.
