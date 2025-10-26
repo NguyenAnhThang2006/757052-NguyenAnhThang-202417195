@@ -99,4 +99,8 @@ public class DigitalVideoDisc {
     public int hashCode() {
         return title == null ? 0 : title.toLowerCase().hashCode();
     }
+
+    public String toString() {
+        return "DVD - " + title + " - " + category + " - " + director + " - " + length + ": " + cost + " $";
+    }
 }
