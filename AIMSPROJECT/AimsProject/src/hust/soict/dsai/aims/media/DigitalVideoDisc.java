@@ -1,3 +1,5 @@
+package hust.soict.dsai.aims.media;
+
 public class DigitalVideoDisc {
 
     private String title;
@@ -27,19 +29,16 @@ public class DigitalVideoDisc {
     }
 
     public DigitalVideoDisc(String title) {
-        super();
         this.title = title;
     }
 
     public DigitalVideoDisc(String category, String title, float cost) {
-        super();
         this.category = category;
         this.title = title;
         this.cost = cost;
     }
 
     public DigitalVideoDisc(String director, String category, String title, float cost) {
-        super();
         this.director = director;
         this.category = category;
         this.title = title;
@@ -47,7 +46,6 @@ public class DigitalVideoDisc {
     }
 
     public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-        super();
         this.title = title;
         this.category = category;
         this.director = director;
@@ -55,17 +53,16 @@ public class DigitalVideoDisc {
         this.cost = cost;
     }
 
-
-
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (!(obj instanceof DigitalVideoDisc)) return false;
         DigitalVideoDisc other = (DigitalVideoDisc) obj;
-        return this.title != null && this.title.equalsIgnoreCase(other.title);
+        return title != null && title.equalsIgnoreCase(other.title);
     }
 
+    @Override
     public int hashCode() {
         return title == null ? 0 : title.toLowerCase().hashCode();
     }
-
 }
