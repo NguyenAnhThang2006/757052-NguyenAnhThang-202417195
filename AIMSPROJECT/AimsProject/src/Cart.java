@@ -1,6 +1,6 @@
 public class Cart {
 
-    //Create a array queue for disc
+    //Create an array queue for discs
     public static final int MAX_NUMBERS_ORDERED = 20;
 
     private DigitalVideoDisc itemsOrdered[] =
@@ -51,8 +51,7 @@ public class Cart {
         }
     }
 
-
-    //Caculate the total cost
+    //Calculate the total cost
     public float totalCost() {
         float total = 0.0f;
 
@@ -73,6 +72,20 @@ public class Cart {
         }
         System.out.println("=========================");
         return total;
+    }
+
+    // 26 - 10 - 2025
+
+    // Overloaded methods
+    public void addDigitalVideoDisc(DigitalVideoDisc... dvds) {
+        for (DigitalVideoDisc dvd : dvds) {
+            addDigitalVideoDisc(dvd);
+        }
+    }
+
+    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+        addDigitalVideoDisc(dvd1);
+        addDigitalVideoDisc(dvd2);
     }
 
 }
