@@ -1,12 +1,14 @@
 package hust.soict.dsai.aims.cart;
 
 import hust.soict.dsai.aims.media.Media;
+import hust.soict.dsai.aims.media.DigitalVideoDisc;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Cart {
 
     public static final int MAX_NUMBERS_ORDERED = 20;
-
     private ArrayList<Media> itemsOrdered = new ArrayList<>();
 
     public void addMedia(Media media) {
@@ -34,17 +36,6 @@ public class Cart {
         return total;
     }
 
-    public void addDigitalVideoDisc(DigitalVideoDisc... dvds) {
-        for (DigitalVideoDisc dvd : dvds) {
-            addDigitalVideoDisc(dvd);
-        }
-    }
-
-    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
-        addDigitalVideoDisc(dvd1);
-        addDigitalVideoDisc(dvd2);
-    }
-
     public void print() {
         System.out.println("*********************** CART ***********************");
         int index = 1;
@@ -64,8 +55,44 @@ public class Cart {
                 found = true;
             }
         }
-        if (!found) {
-            System.out.println("No media found with title: " + title);
+        if (!found) System.out.println("No media found with title: " + title);
+    }
+
+    public void searchById(int id) {
+        boolean found = false;
+        for (Media m : itemsOrdered) {
+            if (m.getId() == id) {
+                System.out.println("Found: " + m.toString());
+                found = true;
+                break;
+            }
         }
+        if (!found) System.out.println("No media found with ID: " + id);
+    }
+
+    public Media findMediaByTitle(String title) {
+        for (Media m : itemsOrdered) {
+            if (m.getTitle().equalsIgnoreCase(title)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    public int getQtyOrdered() {
+        return itemsOrdered.size();
+    }
+
+    public void sort(int option) {
+        switch (option) {
+            case 1 -> itemsOrdered.sort(Comparator.comparing(Media::getTitle, String.CASE_INSENSITIVE_ORDER));
+            case 2 -> itemsOrdered.sort(Comparator.comparingDouble(Media::getCost));
+            default -> System.out.println("Invalid sort option!");
+        }
+    }
+
+    public void clear() {
+        itemsOrdered.clear();
+        System.out.println("Cart is now empty.");
     }
 }

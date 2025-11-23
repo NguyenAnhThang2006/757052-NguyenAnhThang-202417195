@@ -46,4 +46,19 @@ public class Store {
         }
         System.out.println("***************************************************");
     }
+
+    public Media[] getItemsInStore() {
+        Media[] copy = new Media[qtyInStore];
+        System.arraycopy(itemsInStore, 0, copy, 0, qtyInStore);
+        return copy;
+    }
+
+    public Media findMediaByTitle(String title) {
+        for (int i = 0; i < qtyInStore; i++) {
+            if (itemsInStore[i] != null && itemsInStore[i].getTitle().equalsIgnoreCase(title)) {
+                return itemsInStore[i];
+            }
+        }
+        return null;
+    }
 }
