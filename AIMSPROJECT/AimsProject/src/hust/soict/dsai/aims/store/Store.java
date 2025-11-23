@@ -1,43 +1,40 @@
 package hust.soict.dsai.aims.store;
 
-import hust.soict.dsai.aims.media.DigitalVideoDisc;
+import hust.soict.dsai.aims.media.Media;
 
 public class Store {
 
     public static final int MAX_ITEMS_IN_STORE = 100;
-    private DigitalVideoDisc[] itemsInStore = new DigitalVideoDisc[MAX_ITEMS_IN_STORE];
+    private Media[] itemsInStore = new Media[MAX_ITEMS_IN_STORE];
     private int qtyInStore = 0;
 
-    // Thêm DVD vào Store
-    public void addDVD(DigitalVideoDisc dvd) {
+    public void addMedia(Media media) {
         if (qtyInStore >= MAX_ITEMS_IN_STORE) {
-            System.out.println("The store is full. Cannot add more DVDs.");
+            System.out.println("The store is full. Cannot add more items.");
             return;
         }
-        itemsInStore[qtyInStore++] = dvd;
-        System.out.println("Added to store: " + dvd.getTitle());
+        itemsInStore[qtyInStore++] = media;
+        System.out.println("Added to store: " + media.getTitle());
     }
 
-    // Xóa DVD khỏi Store
-    public void removeDVD(DigitalVideoDisc dvd) {
+    public void removeMedia(Media media) {
         boolean found = false;
         for (int i = 0; i < qtyInStore; i++) {
-            if (itemsInStore[i] != null && itemsInStore[i].equals(dvd)) {
+            if (itemsInStore[i] != null && itemsInStore[i].equals(media)) {
                 found = true;
                 for (int j = i; j < qtyInStore - 1; j++) {
                     itemsInStore[j] = itemsInStore[j + 1];
                 }
                 itemsInStore[--qtyInStore] = null;
-                System.out.println("Removed from store: " + dvd.getTitle());
+                System.out.println("Removed from store: " + media.getTitle());
                 break;
             }
         }
         if (!found) {
-            System.out.println("DVD not found in store: " + dvd.getTitle());
+            System.out.println("Item not found in store: " + media.getTitle());
         }
     }
 
-    // In danh sách DVD hiện có trong Store
     public void printStore() {
         System.out.println("\n***********************STORE***********************");
         if (qtyInStore == 0) {
