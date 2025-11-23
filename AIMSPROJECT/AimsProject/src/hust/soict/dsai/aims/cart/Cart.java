@@ -4,7 +4,6 @@ import hust.soict.dsai.aims.media.DigitalVideoDisc;
 
 public class Cart {
 
-    //Create an array queue for discs
     public static final int MAX_NUMBERS_ORDERED = 20;
 
     private DigitalVideoDisc itemsOrdered[] =
@@ -55,7 +54,6 @@ public class Cart {
         }
     }
 
-    //Calculate the total cost
     public float totalCost() {
         float total = 0.0f;
 
@@ -78,7 +76,6 @@ public class Cart {
         return total;
     }
 
-    // Overloaded methods
     public void addDigitalVideoDisc(DigitalVideoDisc... dvds) {
         for (DigitalVideoDisc dvd : dvds) {
             addDigitalVideoDisc(dvd);
