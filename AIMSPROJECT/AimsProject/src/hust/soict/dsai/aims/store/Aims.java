@@ -28,7 +28,6 @@ public class Aims {
         } while (choice != 0);
     }
 
-    // ------------------- MAIN MENU -------------------
     public static void showMenu() {
         System.out.println("\nAIMS: ");
         System.out.println("--------------------------------");
@@ -40,7 +39,6 @@ public class Aims {
         System.out.println("Please choose a number: 0-1-2-3");
     }
 
-    // ------------------- STORE MENU -------------------
     public static void storeMenu() {
         System.out.println("\nOptions: ");
         System.out.println("--------------------------------");
@@ -76,9 +74,6 @@ public class Aims {
         System.out.println("Please choose a number: 0-1-2-3-4-5");
     }
 
-    // ------------------- FUNCTIONALITY -------------------
-
-    // View store menu
     public static void viewStore() {
         store.printStore();
         int choice;
@@ -154,7 +149,6 @@ public class Aims {
         }
     }
 
-    // Update store menu
     public static void updateStore() {
         System.out.println("1. Add media");
         System.out.println("2. Remove media");
@@ -174,7 +168,6 @@ public class Aims {
         }
     }
 
-    // See current cart menu
     public static void seeCurrentCart() {
         cart.print();
         int choice;
@@ -192,8 +185,6 @@ public class Aims {
             }
         } while (choice != 0);
     }
-
-    // ------------------- HELPER METHODS -------------------
 
     private static Media findMediaInStore(String title) {
         for (int i = 0; i < Store.MAX_ITEMS_IN_STORE; i++) {
