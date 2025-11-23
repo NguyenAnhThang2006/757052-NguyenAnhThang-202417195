@@ -7,7 +7,6 @@ public class DigitalVideoDisc extends Media {
 
     private static int nbDigitalVideoDiscs = 0;
 
-    // === Constructors ===
     public DigitalVideoDisc(String title) {
         super(title, null, 0f);
         nbDigitalVideoDiscs++;
@@ -31,7 +30,6 @@ public class DigitalVideoDisc extends Media {
         nbDigitalVideoDiscs++;
     }
 
-    // === Getters ===
     public String getDirector() {
         return director;
     }
@@ -40,13 +38,10 @@ public class DigitalVideoDisc extends Media {
         return length;
     }
 
-    // === Static getter ===
     public static int getNbDigitalVideoDiscs() {
         return nbDigitalVideoDiscs;
     }
 
-    // === equals & hashCode ===
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof DigitalVideoDisc)) return false;
@@ -54,12 +49,10 @@ public class DigitalVideoDisc extends Media {
         return getTitle() != null && getTitle().equalsIgnoreCase(other.getTitle());
     }
 
-    @Override
     public int hashCode() {
         return getTitle() == null ? 0 : getTitle().toLowerCase().hashCode();
     }
 
-    @Override
     public String toString() {
         return "DVD - "
                 + getTitle() + " - "
