@@ -4,6 +4,7 @@ import hust.soict.dsai.aims.media.Media;
 import java.util.ArrayList;
 
 public class Cart {
+
     public static final int MAX_NUMBERS_ORDERED = 20;
 
     private ArrayList<Media> itemsOrdered = new ArrayList<>();
@@ -31,6 +32,17 @@ public class Cart {
             total += m.getCost();
         }
         return total;
+    }
+
+    public void addDigitalVideoDisc(DigitalVideoDisc... dvds) {
+        for (DigitalVideoDisc dvd : dvds) {
+            addDigitalVideoDisc(dvd);
+        }
+    }
+
+    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+        addDigitalVideoDisc(dvd1);
+        addDigitalVideoDisc(dvd2);
     }
 
     public void print() {
