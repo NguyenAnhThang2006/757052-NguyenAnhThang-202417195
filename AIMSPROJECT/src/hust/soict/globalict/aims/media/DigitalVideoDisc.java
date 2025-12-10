@@ -24,7 +24,7 @@ public class DigitalVideoDisc extends Media implements Playable {
     public int getLength() { return length; }
 
     @Override
-    public void play() throws PlayerException {
+    public void play() throws PlayerException { 
         if (this.length > 0) {
             System.out.println("Playing DVD: " + this.getTitle());
             System.out.println("DVD length: " + this.getLength());
