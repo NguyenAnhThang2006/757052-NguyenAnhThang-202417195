@@ -18,7 +18,6 @@ public abstract class AddItemToStoreScreen extends JFrame {
 
         setJMenuBar(createMenuBar());
         add(createHeader(title), BorderLayout.NORTH);
-
         add(createInputForm(), BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -27,15 +26,12 @@ public abstract class AddItemToStoreScreen extends JFrame {
 
     protected abstract JPanel createInputForm();
 
-
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Options");
 
         JMenuItem viewStore = new JMenuItem("View Store");
-        viewStore.addActionListener(e -> {
-            showStoreScreen();
-        });
+        viewStore.addActionListener(e -> showStoreScreen());
         menu.add(viewStore);
 
         menuBar.add(menu);

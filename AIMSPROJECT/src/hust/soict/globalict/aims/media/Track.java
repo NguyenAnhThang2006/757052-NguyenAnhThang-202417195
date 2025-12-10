@@ -1,7 +1,7 @@
 package hust.soict.globalict.aims.media;
 
 import hust.soict.globalict.aims.playable.Playable;
-import hust.soict.globalict.aims.exception.PlayerException; // Cần import PlayerException
+import hust.soict.globalict.aims.exception.PlayerException;
 
 public class Track implements Playable {
     private String title;
@@ -15,32 +15,32 @@ public class Track implements Playable {
         this.length = length;
     }
 
-    public String getTitle() { return title; }
-    public int getLength() { return length; }
+    public String getTitle() {
+        return title;
+    }
+
+    public int getLength() {
+        return length;
+    }
 
     @Override
-    public void play() throws PlayerException { // Cập nhật chữ ký phương thức
+    public void play() throws PlayerException {
         if (this.length > 0) {
             System.out.println("Playing Track: " + title);
-            System.out.println("Track length: " + length);
+            System.out.println("Track length: " + length + " minutes");
         } else {
-            // Ném PlayerException nếu length không dương
-            System.err.println("ERROR: Track length is non-positive!");
-            throw new PlayerException("ERROR: Track length is non-positive!");
+            throw new PlayerException("ERROR: Track length is non-positive.");
         }
     }
 
     @Override
     public boolean equals(Object obj) {
-
         if (this == obj) {
             return true;
         }
         if (obj == null || !(obj instanceof Track track)) {
             return false;
         }
-
-
         return this.length == track.length && this.title.equalsIgnoreCase(track.title);
     }
 }

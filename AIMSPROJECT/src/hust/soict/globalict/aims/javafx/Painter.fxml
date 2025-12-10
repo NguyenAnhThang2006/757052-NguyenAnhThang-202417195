@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="hust.soict.globalict.javafx.PainterController">
+            fx:controller="hust.soict.dsai.javafx.PainterController">
 
     <left>
         <VBox alignment="TOP_LEFT" spacing="10.0" BorderPane.margin="10">

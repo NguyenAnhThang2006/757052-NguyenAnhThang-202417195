@@ -27,7 +27,7 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
         formPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
 
         formPanel.add(new JLabel("Title:"));
-        formPanel.add(titleField); // Dòng này không thể lỗi vì titleField vừa được khởi tạo
+        formPanel.add(titleField);
 
         formPanel.add(new JLabel("Category:"));
         formPanel.add(categoryField);
@@ -38,7 +38,7 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
         formPanel.add(new JLabel("Authors (comma separated):"));
         formPanel.add(authorsField);
 
-        JButton saveButton = new JButton("Save"); // Đây là thành phần được khởi tạo cục bộ
+        JButton saveButton = new JButton("Save");
         saveButton.addActionListener(this::saveBook);
         formPanel.add(new JLabel(""));
         formPanel.add(saveButton);
@@ -53,12 +53,13 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
             String authorsStr = authorsField.getText().trim();
 
             if (title.isEmpty() || costField.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng điền Title và Cost.", "Lỗi Nhập Liệu", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please fill in Title and Cost.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             float cost = Float.parseFloat(costField.getText().trim());
             ArrayList<Author> authors = new ArrayList<>();
+
             if (!authorsStr.isEmpty()) {
                 String[] authorNames = authorsStr.split(",");
                 for (String name : authorNames) {
@@ -79,7 +80,7 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Validation Error", JOptionPane.ERROR_MESSAGE);
 
         } catch (LimitExceededException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Lỗi Lưu trữ", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Storage Limit Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

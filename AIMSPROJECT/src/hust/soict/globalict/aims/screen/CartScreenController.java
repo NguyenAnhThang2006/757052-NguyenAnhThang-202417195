@@ -11,12 +11,17 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.event.ActionEvent;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import java.util.Optional;
 
 public class CartScreenController {
 
     private Cart cart;
     private FilteredList<Media> filteredItems;
+
+    private JFrame currentScreen;
+    private JFrame storeScreen;
 
     @FXML private TableView<Media> tblMedia;
     @FXML private TableColumn<Media, String> colMediaTitle;
@@ -32,13 +37,14 @@ public class CartScreenController {
     @FXML private ToggleGroup filterCategory;
     @FXML private RadioButton radioBtnFilterTitle;
 
-    public CartScreenController(Cart cart) {
+    public CartScreenController(Cart cart, JFrame currentScreen, JFrame storeScreen) {
         this.cart = cart;
+        this.currentScreen = currentScreen;
+        this.storeScreen = storeScreen;
     }
 
     @FXML
     private void initialize() {
-
         colMediaTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colMediacategory.setCellValueFactory(new PropertyValueFactory<>("category"));
         colMediaCost.setCellValueFactory(new PropertyValueFactory<>("cost"));
@@ -46,6 +52,8 @@ public class CartScreenController {
         filteredItems = new FilteredList<>(cart.getItemsOrdered());
         tblMedia.setItems(filteredItems);
 
+        tfFilter.setText("");
+        radioBtnFilterId.setSelected(true);
         filteredItems.setPredicate(null);
 
         btnPlay.setDisable(true);
@@ -55,8 +63,9 @@ public class CartScreenController {
             updateButtonState(newSelection);
         });
 
-        tfFilter.textProperty().addListener((observable, oldValue, newValue) -> filterMedia());
+        tfFilter.textProperty().addListener((obs, oldValue, newValue) -> filterMedia());
         radioBtnFilterId.selectedProperty().addListener((obs, oldValue, newValue) -> filterMedia());
+        radioBtnFilterTitle.selectedProperty().addListener((obs, oldValue, newValue) -> filterMedia());
 
         cart.getItemsOrdered().addListener((javafx.collections.ListChangeListener<Media>) change -> updateTotalCost());
 
@@ -84,10 +93,8 @@ public class CartScreenController {
             cart.removeMedia(selectedMedia);
             updateTotalCost();
             updateButtonState(tblMedia.getSelectionModel().getSelectedItem());
-
             filterMedia();
-
-            new Alert(Alert.AlertType.INFORMATION, "Đã xóa " + selectedMedia.getTitle() + " khỏi giỏ hàng.").showAndWait();
+            new Alert(Alert.AlertType.INFORMATION, "Removed " + selectedMedia.getTitle() + " from cart.").showAndWait();
         }
     }
 
@@ -97,12 +104,10 @@ public class CartScreenController {
         if (selectedMedia instanceof Playable playable) {
             try {
                 playable.play();
-
-                new Alert(Alert.AlertType.INFORMATION, "Đang Play: " + selectedMedia.getTitle() +
-                        "\n(Output Playable Model được in ra console)").showAndWait();
-
+                new Alert(Alert.AlertType.INFORMATION, "Playing: " + selectedMedia.getTitle() +
+                        "\n(Console output should follow)").showAndWait();
             } catch (PlayerException ex) {
-                new Alert(Alert.AlertType.ERROR, "Lỗi Play: " + ex.getMessage()).showAndWait();
+                new Alert(Alert.AlertType.ERROR, "Play Error: " + ex.getMessage()).showAndWait();
             }
         }
     }
@@ -110,20 +115,18 @@ public class CartScreenController {
     @FXML
     void btnPlaceOrderPressed(ActionEvent event) {
         if (cart.getQtyOrdered() == 0) {
-            new Alert(Alert.AlertType.WARNING, "Giỏ hàng trống. Không thể đặt hàng.").showAndWait();
+            new Alert(Alert.AlertType.WARNING, "Cart is empty. Cannot place order.").showAndWait();
             return;
         }
 
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setHeaderText("Tổng chi phí: " + String.format("%.2f $", cart.totalCost()));
+        confirmation.setHeaderText("Total Cost: " + String.format("%.2f $", cart.totalCost()));
         Optional<ButtonType> result = confirmation.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             cart.clear();
             updateTotalCost();
-
             filterMedia();
-
-            new Alert(Alert.AlertType.INFORMATION, "Đã tạo đơn hàng thành công!").showAndWait();
+            new Alert(Alert.AlertType.INFORMATION, "Order placed successfully!").showAndWait();
         }
     }
 
@@ -152,6 +155,9 @@ public class CartScreenController {
 
     @FXML
     void handleViewStoreMenu(ActionEvent event) {
-        ((MenuItem)event.getSource()).getParentPopup().getOwnerWindow().hide();
+        SwingUtilities.invokeLater(() -> {
+            currentScreen.dispose();
+            storeScreen.setVisible(true);
+        });
     }
 }

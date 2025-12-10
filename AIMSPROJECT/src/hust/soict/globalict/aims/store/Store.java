@@ -35,18 +35,6 @@ public class Store {
         }
     }
 
-    public void printStore() {
-        System.out.println("\n***********************STORE***********************");
-        if (qtyInStore == 0) {
-            System.out.println("The store is empty.");
-        } else {
-            for (int i = 0; i < qtyInStore; i++) {
-                System.out.println((i + 1) + ". " + itemsInStore[i].toString());
-            }
-        }
-        System.out.println("***************************************************");
-    }
-
     public Media[] getItemsInStore() {
         Media[] copy = new Media[qtyInStore];
         System.arraycopy(itemsInStore, 0, copy, 0, qtyInStore);

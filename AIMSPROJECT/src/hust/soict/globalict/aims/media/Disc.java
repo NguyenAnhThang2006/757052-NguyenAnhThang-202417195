@@ -21,6 +21,6 @@ public abstract class Disc extends Media {
 
     @Override
     public String toString() {
-        return super.toString() + " - " + director + " - " + length + " phút";
+        return super.toString() + " - " + director + " - " + length + " minutes";
     }
 }

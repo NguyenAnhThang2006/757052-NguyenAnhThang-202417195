@@ -1,7 +1,7 @@
 package hust.soict.globalict.aims.media;
 
 import hust.soict.globalict.aims.playable.Playable;
-import hust.soict.globalict.aims.exception.PlayerException; // Cần import PlayerException
+import hust.soict.globalict.aims.exception.PlayerException;
 import java.util.ArrayList;
 
 public class CompactDisc extends Disc implements Playable {

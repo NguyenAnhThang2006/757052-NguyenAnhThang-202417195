@@ -1,104 +1,80 @@
 package hust.soict.globalict.aims.screen;
 
-import hust.soict.globalict.aims.exception.LimitExceededException;
-import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.cart.Cart;
-import hust.soict.globalict.aims.media.DigitalVideoDisc;
+import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.playable.Playable;
+import hust.soict.globalict.aims.exception.LimitExceededException;
+import hust.soict.globalict.aims.exception.PlayerException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class MediaStore extends JPanel {
     private Media media;
     private Cart cart;
+    private JFrame parentScreen;
 
-    public MediaStore(Media media, Cart cart) {
+    public MediaStore(Media media, Cart cart, JFrame parentScreen) {
         this.media = media;
         this.cart = cart;
+        this.parentScreen = parentScreen;
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        this.setPreferredSize(new Dimension(300, 150));
 
-        JLabel title = new JLabel(media.getTitle());
-        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 16));
-        title.setAlignmentX(CENTER_ALIGNMENT);
+        JLabel titleLabel = new JLabel(media.getTitle());
+        titleLabel.setFont(new Font(titleLabel.getFont().getName(), Font.BOLD, 16));
+        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-        JLabel cost = new JLabel(String.format("%.2f $", media.getCost()));
-        cost.setAlignmentX(CENTER_ALIGNMENT);
-        cost.setFont(new Font(cost.getFont().getName(), Font.PLAIN, 14));
-
+        JLabel costLabel = new JLabel(String.format("%.2f $", media.getCost()));
+        costLabel.setAlignmentX(CENTER_ALIGNMENT);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        JButton addToCartButton = new JButton("Add to cart");
-
-        addToCartButton.addActionListener(e -> {
-            try {
-                cart.addMedia(media);
-
-                JOptionPane.showMessageDialog(this,
-                        media.getTitle() + " đã được thêm vào giỏ hàng.\nSố lượng hiện tại: " + cart.getQtyOrdered(),
-                        "Thành công",
-                        JOptionPane.INFORMATION_MESSAGE);
-
-            } catch (LimitExceededException ex) {
-                JOptionPane.showMessageDialog(this,
-                        ex.getMessage(),
-                        "Lỗi Giỏ Hàng",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        });
-
-        buttonPanel.add(addToCartButton);
+        JButton cartButton = new JButton("Add to Cart");
+        cartButton.addActionListener(this::handleAddToCart);
+        buttonPanel.add(cartButton);
 
         if (media instanceof Playable) {
             JButton playButton = new JButton("Play");
-
-            playButton.addActionListener(e -> {
-                if (media instanceof DigitalVideoDisc dvd && dvd.getLength() <= 0) {
-                    JOptionPane.showMessageDialog(this,
-                            "ERROR: DVD " + media.getTitle() + " không thể Play. Length <= 0.",
-                            "Lỗi Play",
-                            JOptionPane.ERROR_MESSAGE);
-                } else if (media instanceof Playable) {
-                    playMediaDialog((Playable) media);
-                }
-            });
+            playButton.addActionListener(this::handlePlay);
             buttonPanel.add(playButton);
         }
 
-        this.add(Box.createVerticalGlue()); // Đẩy nội dung ra giữa
-        this.add(title);
-        this.add(cost);
+        this.add(Box.createVerticalGlue());
+        this.add(titleLabel);
+        this.add(costLabel);
+        this.add(Box.createRigidArea(new Dimension(0, 10)));
         this.add(buttonPanel);
         this.add(Box.createVerticalGlue());
     }
 
-    private void playMediaDialog(Playable media) {
-        JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(this), "Playing Media");
-        dialog.setSize(400, 200);
-        dialog.setLocationRelativeTo(SwingUtilities.getWindowAncestor(this));
-
-        JPanel contentPanel = new JPanel(new BorderLayout());
-
-        JTextArea detailArea = new JTextArea();
-        detailArea.setEditable(false);
-        detailArea.setFont(new Font(detailArea.getFont().getName(), Font.PLAIN, 14));
-
-        detailArea.setText("Media: " + ((Media)media).getTitle() + "\n" +
-                "Cost: " + ((Media)media).getCost() + " $\n" +
-                "Status: Playing...");
-
-        if (media instanceof DigitalVideoDisc dvd) {
-            detailArea.append("\nThời lượng: " + dvd.getLength() + " phút");
+    private void handleAddToCart(ActionEvent e) {
+        try {
+            cart.addMedia(media);
+            JOptionPane.showMessageDialog(this, "Added '" + media.getTitle() + "' to cart!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (LimitExceededException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Cart Full Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
 
-        contentPanel.add(new JScrollPane(detailArea), BorderLayout.CENTER);
-
-        dialog.setContentPane(contentPanel);
-        dialog.setVisible(true);
-
+    private void handlePlay(ActionEvent e) {
+        if (media instanceof Playable playable) {
+            try {
+                playable.play();
+                JOptionPane.showMessageDialog(this,
+                        "Playing: " + media.getTitle() + "\nCheck console for details.",
+                        "Playing Media",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } catch (PlayerException ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Cannot play '" + media.getTitle() + "': " + ex.getMessage(),
+                        "Playback Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 }

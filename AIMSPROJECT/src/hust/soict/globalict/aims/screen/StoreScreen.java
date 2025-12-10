@@ -38,6 +38,7 @@ public class StoreScreen extends JFrame {
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Options");
+
         JMenu smUpdateStore = new JMenu("Update Store");
 
         JMenuItem addBook = new JMenuItem("Add Book");
@@ -67,9 +68,7 @@ public class StoreScreen extends JFrame {
         menu.add(viewStoreMenuItem);
 
         JMenuItem viewCartMenuItem = new JMenuItem("View cart");
-        viewCartMenuItem.addActionListener(e -> {
-            showCartScreen();
-        });
+        viewCartMenuItem.addActionListener(e -> showCartScreen());
         menu.add(viewCartMenuItem);
 
         menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -89,10 +88,7 @@ public class StoreScreen extends JFrame {
         JButton cartButton = new JButton("View cart");
         cartButton.setPreferredSize(new Dimension(100, 50));
         cartButton.setMaximumSize(new Dimension(100, 50));
-
-        cartButton.addActionListener(e -> {
-            showCartScreen();
-        });
+        cartButton.addActionListener(e -> showCartScreen());
 
         header.add(Box.createRigidArea(new Dimension(10, 10)));
         header.add(title);
@@ -105,15 +101,14 @@ public class StoreScreen extends JFrame {
 
     private JPanel createCenter() {
         JPanel center = new JPanel();
-
         center.setLayout(new GridLayout(0, 3, 10, 10));
         center.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         Media[] mediaArray = store.getItemsInStore();
         ArrayList<Media> mediaInStore = new ArrayList<>(Arrays.asList(mediaArray));
 
-        for (int i = 0; i < Math.min(mediaInStore.size(), 9); i++) {
-            MediaStore cell = new MediaStore(mediaInStore.get(i), cart);
+        for (Media media : mediaInStore) {
+            MediaStore cell = new MediaStore(media, cart, this);
             center.add(cell);
         }
         return center;

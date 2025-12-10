@@ -1,36 +1,27 @@
 package hust.soict.globalict.aims.media;
 
 import hust.soict.globalict.aims.playable.Playable;
-import hust.soict.globalict.aims.exception.PlayerException; // Cần import PlayerException
+import hust.soict.globalict.aims.exception.PlayerException;
 
-public class DigitalVideoDisc extends Media implements Playable {
+public class DigitalVideoDisc extends Disc implements Playable {
 
-    private String director;
-    private int length;
+    private static int nbMedia = 0;
 
-    public DigitalVideoDisc(String title, String category, String director, int length, float cost)
-            throws IllegalArgumentException {
-        super(title, category, cost);
-
-        if (length < 0) {
-            throw new IllegalArgumentException("ERROR: DVD length cannot be negative.");
-        }
-
-        this.director = director;
-        this.length = length;
+    public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
+        super(title, category, cost, director, length);
+        this.setId(++nbMedia);
     }
 
-    public String getDirector() { return director; }
-    public int getLength() { return length; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
-    public void play() throws PlayerException { // Cập nhật chữ ký phương thức
-        if (this.length > 0) {
-            System.out.println("Playing DVD: " + this.getTitle());
-            System.out.println("DVD length: " + this.getLength());
-        } else {
-            System.err.println("ERROR: DVD length is non-positive!");
-            throw new PlayerException("ERROR: DVD length is non-positive!");
+    public void play() throws PlayerException {
+        if (this.getLength() <= 0) {
+            throw new PlayerException("ERROR: DVD cannot be played. Length is non-positive.");
         }
+        System.out.println("Playing DVD: " + this.getTitle());
+        System.out.println("DVD length: " + this.getLength());
     }
 }

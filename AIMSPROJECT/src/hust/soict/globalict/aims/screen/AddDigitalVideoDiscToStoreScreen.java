@@ -56,7 +56,7 @@ public class AddDigitalVideoDiscToStoreScreen extends AddItemToStoreScreen {
             String director = directorField.getText().trim();
 
             if (title.isEmpty() || costField.getText().trim().isEmpty() || lengthField.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng điền Title, Length và Cost.", "Lỗi Nhập Liệu", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please fill in Title, Length, and Cost.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -76,7 +76,7 @@ public class AddDigitalVideoDiscToStoreScreen extends AddItemToStoreScreen {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Validation Error", JOptionPane.ERROR_MESSAGE);
 
         } catch (LimitExceededException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Lỗi Lưu trữ", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Storage Limit Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
