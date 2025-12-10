@@ -1,7 +1,7 @@
 package hust.soict.globalict.aims.media;
 
 import hust.soict.globalict.aims.playable.Playable;
-import hust.soict.globalict.aims.exception.PlayerException; // Cần import PlayerException
+import hust.soict.globalict.aims.exception.PlayerException; 
 
 public class DigitalVideoDisc extends Media implements Playable {
 
@@ -24,7 +24,7 @@ public class DigitalVideoDisc extends Media implements Playable {
     public int getLength() { return length; }
 
     @Override
-    public void play() throws PlayerException { // Cập nhật chữ ký phương thức
+    public void play() throws PlayerException { 
         if (this.length > 0) {
             System.out.println("Playing DVD: " + this.getTitle());
             System.out.println("DVD length: " + this.getLength());
