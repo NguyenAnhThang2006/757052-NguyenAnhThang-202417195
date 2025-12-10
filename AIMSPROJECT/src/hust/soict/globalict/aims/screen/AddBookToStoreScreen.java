@@ -27,7 +27,7 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
         formPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
 
         formPanel.add(new JLabel("Title:"));
-        formPanel.add(titleField); // Dòng này không thể lỗi vì titleField vừa được khởi tạo
+        formPanel.add(titleField); 
 
         formPanel.add(new JLabel("Category:"));
         formPanel.add(categoryField);
@@ -38,7 +38,7 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
         formPanel.add(new JLabel("Authors (comma separated):"));
         formPanel.add(authorsField);
 
-        JButton saveButton = new JButton("Save"); // Đây là thành phần được khởi tạo cục bộ
+        JButton saveButton = new JButton("Save");
         saveButton.addActionListener(this::saveBook);
         formPanel.add(new JLabel(""));
         formPanel.add(saveButton);
