@@ -7,9 +7,8 @@ import java.awt.event.*;
 public class SwingAccumulator extends JFrame {
     private JTextField tfInput;
     private JTextField tfOutput;
-    private int sum = 0;           // Accumulated sum, init to 0
+    private int sum = 0;        
 
-    // Constructor to setup the GUI components and event handlers
     public SwingAccumulator() {
         Container cp = getContentPane();
         cp.setLayout(new GridLayout(2, 2));
