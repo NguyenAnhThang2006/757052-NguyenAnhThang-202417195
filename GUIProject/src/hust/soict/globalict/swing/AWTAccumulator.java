@@ -1,14 +1,13 @@
 package hust.soict.globalict.swing;
 
 import java.awt.*;
-import java.awt.event.*;   // <<-- thêm dòng này
+import java.awt.event.*;   
 
 public class AWTAccumulator extends Frame {
     private TextField tfInput;
     private TextField tfOutput;
-    private int sum = 0;          // Accumulated sum, init to 0
+    private int sum = 0;         
 
-    // Constructor to setup the GUI components and event handlers
     public AWTAccumulator() {
         setLayout(new GridLayout(2, 2));
 
